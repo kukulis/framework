@@ -23,7 +23,7 @@ Lets describe "good" framework traits/statements.
 1. Easy to modify code, easy to scale;
 1. Easy to reuse code;
 1. Final application easy to maintain;
-1. Final application is stable reliable;
+1. Final application is stable and reliable;
 1. Final application is efficient in speed, memory consumption, disk consumption;
 1. Final application satisfies client needs.
 
