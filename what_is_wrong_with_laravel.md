@@ -38,6 +38,10 @@ Most of other traits are ok ( may be even 10 of 10 ) , but it depends if you are
 
 Not sure if it is coverable with tests, so the paper will be modified in future.
 
+## Possibility of using laravel in the correct way
+
+If we split a web service application in to layers, we will receive http network layer, where controllers and requests belongs to, business logic layer where services and helpers belongs to and the database layer, where repositories and entities belongs to.
+But if we take a Laravel Model class, it passes through all layers of an application. We may hide it from the top - network layer by using only id in controller, then passing this id to service and database levels, where the Model is actually loaded. Also we may not use Model’s methods which belong to Repository classes. So if we want we may still keep using Laravel in the correct way.
 
 
 ## Conclusions
