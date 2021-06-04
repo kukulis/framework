@@ -117,7 +117,7 @@ Lets take the same code, but in this time we remove the "new" operators from the
 
 
 Now the question arizes, where the instances of our classes will be created?
-The "DI engine" commes in to the work now. Instead of using a particular DI engine ( symfony, laravel or other ) , as an example we will provide a factory class here.
+The **DI assembly engine** commes in to the work now. Instead of using a particular DI engine ( symfony, laravel or other ) , as an example we will provide a factory class here.
 
     class Factory {
        public static function getAInstance() {
@@ -321,6 +321,7 @@ Here we should provide good and bad examples of the DI application in our system
 
 ## Conclusions
 
-* We provided 3 levels of the DI application 
+* We provided 3 levels of the DI application;
+* We introduced a "DI assembly engine" term;
 * The decoupling of classes are achieved by moving "dependency" code from our business logic code to DI assembly code.
 
