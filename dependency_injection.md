@@ -28,7 +28,7 @@ Lets say we have three classes A, B  and C, which has function x, y, z and they 
 
     class A {
       private $b;
-      public function __ construct() {
+      public function __construct() {
          $this->b = new B();
       }
       public funciton x() {
@@ -39,7 +39,7 @@ Lets say we have three classes A, B  and C, which has function x, y, z and they 
 
     class B {
       private $c;
-      public function __ construct() {
+      public function __construct() {
          $this->c = new C();
       }
       public function y() {
@@ -49,8 +49,259 @@ Lets say we have three classes A, B  and C, which has function x, y, z and they 
     }
 
     class C {
+       private $param;
        public function z() {
-          echo "C.z\n";
+          $this->param = Config::getParam('param');
+          echo "C.z, {$this->param} \n";
        }
     }
+
+    class Config {
+        const PARAMETERS = [
+            'param' => 'Param value',
+            'param2' => 'Param2 value',
+        ]
+        public static function getParam($name) {
+            return self::PARAMETERS[$name];
+        }
+    }
+    
+
+As you see here the classes A, B and C are strongly coupled to each other. The instanciation of classes with a "new" operator appears inside A and B classes. If you remove B or C class from your code, it will stop compiling. Also the configuration parameters ( that are stored in the Config class ) are loaded in the runtime in the class C. The class A **must know** about class B, class B **must know** about class C and class C **must know** about Config class.
+
+### level 1 moving instantiation to outside, injecting configuration parameters.
+
+Lets take the same code, but in this time we remove the "new" operators from the code. Also we put configuration parameter $param in to the class C constructor.
+
+    class A {
+      private $b;
+      public function __construct(B $b) {
+         $this->b = $b;
+      }
+      public funciton x() {
+        echo "A.x\n";
+        $this->b->y();
+      }
+    }
+
+    class B {
+      private $c;
+      public function __construct(C $c) {
+         $this->c = $c;
+      }
+      public function y() {
+         echo "B.y\n";
+         $this->c->z();
+      }
+    }
+
+    class C {
+       private $param;
+       public function __construct($param) {
+            $this->param = $param;
+       }
+       public function z() {
+          echo "C.z {$this->param} \n";
+       }
+    }
+    
+    class Config {
+        const PARAMETERS = [
+            'param' => 'Param value',
+            'param2' => 'Param2 value',
+        ]
+        public static function getParam($name) {
+            return self::PARAMETERS[$name];
+        }
+    }
+
+
+Now the question arizes, where the instances of our classes will be created?
+The "DI engine" commes in to the work now. Instead of using a particular DI engine ( symfony, laravel or other ) , as an example we will provide a factory class here.
+
+    class Factory {
+       public static function getAInstance() {
+            return new A(new B( new C(Config::getParam('param'))));
+       }
+    }
+
+This is a primitive replacement of the DI assembly engine, but actually it does the same job - makes an instances of our classes and passes config parameters where they are needed.
+
+Here we completely detach Config class from the class C. Instead of getting the parameter $param value from the Config class, we may use **any** other source of the parameter - for example loading it from some file or from the database, or just hardcode it like this.
+
+    class Factory {
+       public static function getAInstance() {
+            return new A(new B( new C('other param value')));
+       }
+    }
+    
+Also with this approach we may controll how the instances of A, B and C are created. We may make them as **singletons** like this:
+
+    class Factory {
+        private static $a=null, $b=null, $c=null;
+        
+        public static function getC() {
+            if (self::$c == null) {
+                self::$c = new C(Config::getParam('param'));
+            }
+            return self::$c;
+        }
+        
+        public static function getB() {
+            if ( self::$b == null) {
+                self::$b = new B(self::getC());
+            }
+            return self::$b;
+        }
+        
+        public static function getC() {
+            if (self::$a == null) {
+                self::$a = new A(self::getB());
+            }
+            return self::$a;
+        }
+    }
+
+
+Still this is only **level 1** of DI because class A **must know** about class B and the class B **must know** about class C.  
+
+### level 2 using interfaces.
+
+let each of the classes A, B and C now implement interfaces IA,IB and IC
+
+    interface IA {
+        public function x();
+    }
+    
+    interface IB {
+        public function y();
+    }
+    
+    interface IC {
+        public function z();
+    }
+    
+    class A implements IA {
+      private $b;
+      public function __construct(IB $b) {
+         $this->b = $b;
+      }
+      public funciton x() {
+        echo "A.x\n";
+        $this->b->y();
+      }
+    }
+
+    class B implements IB {
+      private $c;
+      public function __construct(IC $c) {
+         $this->c = $c;
+      }
+      public function y() {
+         echo "B.y\n";
+         $this->c->z();
+      }
+    }
+
+    class C implements IC {
+       private $param;
+       public function __construct($param) {
+            $this->param = $param;
+       }
+       public function z() {
+          echo "C.z {$this->param} \n";
+       }
+    }
+    
+    class Config {
+        const PARAMETERS = [
+            'param' => 'Param value',
+            'param2' => 'Param2 value',
+        ]
+        public static function getParam($name) {
+            return self::PARAMETERS[$name];
+        }
+    }
+
+
+The factory may remain the same. 
+So what is the difference?
+
+The difference here is that class A doesn't know about class B anymore and the class B doesn't know about class C. This may look a small thing, but actually this is **a huge** difference. Now if you remove any of the classes A, B or C from the code, the code still will compile. This means that we **decoupled** A from B and B from C.
+
+Now in the factory we may use other implementations for A, B or C classes.
+
+
+    class A2 implements IA {
+        ....
+    }
+    class A3 implements IA {
+        ....
+    }
+    class B2 implements IB {
+        ....
+    }
+    class B3 implements IB {
+        ....
+    }
+    class C2 implements IC {
+        ....
+    }
+    class C3 implements IC {
+        ....
+    }
+    
+    class Factory () {
+        public static function getA() {
+            return new A(new B2( new C3(Config::getParam('param'))));
+        }
+    }
+
+### level 3 using multiple instances of the same classes
+
+Lets say we need to have multiple databases in our system, or we need to work with different resources but still use the same code. So we may use multiple instances or our service classes, depending on our needs.
+
+    class D {
+        private $workers=[];
+        
+        public addWorker(IA $worker) {
+            $this->workers[] = $worker;
+        }
+        
+        public function work() {
+            foreach ( $this->workers as $worker ) {
+                $worker->x();
+            }
+        }
+    }
+
+
+    class Factory () {
+        public static function getBusinesLogicFirstA() {
+            return new A(new B2( new C3(Config::getParam('param'))));
+        }
+        public static function getBusinesLogicSecondA() {
+            return new A2(new B3( new C2(Config::getParam('param2'))));
+        }
+        
+        public static function getD() {
+            $d = new D();
+            $d->addWorker(self::getBusinesLogicFirstA());
+            $d->addWorker(self::getBusinesLogicSecondA());
+            return $d;
+        }
+    }
+
+When a need arises, we may modify the Factory to assembly other implementations of IA, IB or IC interfaces.
+With this approach we atchieve a goal of combining our system behavior in DI assembly part, without modifying a code
+
+## Good and bad practices
+
+Here we should provide good and bad examples of the DI application in our system, but we move the examples part to another paper.
+
+
+## Conclusions
+
+* We provided 3 levels of the DI application 
+* The decoupling of classes are achieved by moving "dependency" code from our business logic code to DI assembly code.
 
