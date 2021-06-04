@@ -259,6 +259,8 @@ Now in the factory we may use other implementations for A, B or C classes.
         }
     }
 
+With this approach you may compose your application in the DI assembly code, by using various implementations from various modules.
+
 ### level 3 using multiple instances of the same classes
 
 Lets say we need to have multiple databases in our system, or we need to work with different resources but still use the same code. So we may use multiple instances or our service classes, depending on our needs.
@@ -287,11 +289,17 @@ Lets say we have a class D which have multiple workers - implementations of inte
         public static function getBusinesLogicSecondA() {
             return new A(new B3( new C2(Config::getParam('param2'))));
         }
+
+        public static function getBusinesLogicThirdA() {
+            return new A(new B( new C3(Config::getParam('param2'))));
+        }
         
         public static function getD() {
             $d = new D();
             $d->addWorker(self::getBusinesLogicFirstA());
             $d->addWorker(self::getBusinesLogicSecondA());
+            $d->addWorker(self::getBusinesLogicThirdA());
+            
             return $d;
         }
     }
@@ -301,14 +309,14 @@ With this approach we atchieve a goal of combining our system behavior in DI ass
 
 If you pass the exact classes in you constructor, you automaticaly make them dependend to each other, so the coupling instead of "low" becomes "high" again.
 
-So for **level 3 DI** you need to have a possibility to have **multiple instances** of the same interface in you assembly engine. This may be atchieved by giving some naming to your services instances like "BusinesLogicFirstA",  "BusinesLogicSecondA", or you should have a very flexible assembly factory like this:
+So for **level 3 DI** you need to have a possibility to have **multiple instances** of the same interface in you assembly engine. This may be atchieved by giving some naming to your services instances like "BusinesLogicFirstA",  "BusinesLogicSecondA", "getBusinesLogicThirdA" or you should have a very flexible assembly factory like this:
 
     class Factory () {
         public static function getD() {
             $d = new D();
             $d->addWorker(new A3(new B2( new C3(Config::getParam('param')))));
             $d->addWorker(new A(new B3( new C2(Config::getParam('param2')))));
-            $d->addWorker(new A(new B3( new C(Config::getParam('param')))));
+            $d->addWorker(new A(new B( new C3(Config::getParam('param2')))));
             return $d;
         }
     }
