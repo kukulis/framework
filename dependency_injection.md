@@ -26,30 +26,31 @@ We will provide all examples in the PHP programming language.
 
 Lets say we have three classes A, B  and C, which has function x, y, z and they call each others functions.
 
-  class A {
-    private $b;
-    public function __ construct() {
-       $this->b = new B();
+    class A {
+      private $b;
+      public function __ construct() {
+         $this->b = new B();
+      }
+      public funciton x() {
+        echo "A.x\n";
+        $this->b->y();
+      }
     }
-    public funciton x() {
-      echo "A.x\n";
-      $this->b->y();
+
+    class B {
+      private $c;
+      public function __ construct() {
+         $this->c = new C();
+      }
+      public function y() {
+         echo "B.y\n";
+         $this->c->z();
+      }
     }
-  }
-  
-  class B {
-    private $c;
-    public function __ construct() {
-       $this->c = new C();
+
+    class C {
+       public function z() {
+          echo "C.z\n";
+       }
     }
-    public function y() {
-       echo "B.y\n";
-       $this->c->z();
-    }
-  }
-  
-  class C {
-     public function z() {
-        echo "C.z\n";
-     }
-  }
+
