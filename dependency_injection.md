@@ -165,6 +165,8 @@ Also with this approach we may controll how the instances of A, B and C are crea
 
 Still this is only **level 1** of DI because class A **must know** about class B and the class B **must know** about class C.  
 
+Level 1 DI already gives you a **big benefit** to you application. You may cover code with **Tests** as you may mock dependent classes, by passing stubs through constructor parameters. This was **imposible** in the DI level 0.
+
 ### level 2 using interfaces.
 
 let each of the classes A, B and C now implement interfaces IA,IB and IC
@@ -278,10 +280,10 @@ Lets say we need to have multiple databases in our system, or we need to work wi
 
     class Factory () {
         public static function getBusinesLogicFirstA() {
-            return new A(new B2( new C3(Config::getParam('param'))));
+            return new A3(new B2( new C3(Config::getParam('param'))));
         }
         public static function getBusinesLogicSecondA() {
-            return new A2(new B3( new C2(Config::getParam('param2'))));
+            return new A(new B3( new C2(Config::getParam('param2'))));
         }
         
         public static function getD() {
@@ -294,6 +296,23 @@ Lets say we need to have multiple databases in our system, or we need to work wi
 
 When a need arises, we may modify the Factory to assembly other implementations of IA, IB or IC interfaces.
 With this approach we atchieve a goal of combining our system behavior in DI assembly part, without modifying a code
+
+If you pass the exact classes in you constructor, you automaticaly make them dependend to each other, so the coupling instead of "low" becomes "high" again.
+
+So for **level 3 DI** you need to have a possibility to have **multiple instances** of the same interface in you assembly engine. This may be atchieved by giving some naming to your services instances like "BusinesLogicFirstA",  "BusinesLogicSecondA", or you should have a very flexible assembly factory like this:
+
+    class Factory () {
+        public static function getD() {
+            $d = new D();
+            $d->addWorker(new A3(new B2( new C3(Config::getParam('param')))));
+            $d->addWorker(new A(new B3( new C2(Config::getParam('param2')))));
+            $d->addWorker(new A(new B3( new C(Config::getParam('param')))));
+            return $d;
+        }
+    }
+    
+    
+BTW most flexible DI factory is a pure PHP code, but it migh be too verbose and too work consuming.
 
 ## Good and bad practices
 
