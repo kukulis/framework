@@ -20,4 +20,36 @@ The purposes of dependency injection (DI) are:
 ## DI coupling levels
 The term "DI coupling level" is used in this paper only. By the "DI coupling level" we indicate how using DI we separate classes/functions/modules from each other to atchieve the "low coupling" goal; the lesser coupling is atchieved the higher "DI coupling level" is. We will introduce several levels of DI and discuse them one by one in the following text.
 
+We will provide all examples in the PHP programming language.
+
 ### level 0 - no DI at all
+
+Lets say we have three classes A, B  and C, which has function x, y, z and they call each others functions.
+
+  class A {
+    private $b;
+    public function __ construct() {
+       $this->b = new B();
+    }
+    public funciton x() {
+      echo "A.x\n";
+      $this->b->y();
+    }
+  }
+  
+  class B {
+    private $c;
+    public function __ construct() {
+       $this->c = new C();
+    }
+    public function y() {
+       echo "B.y\n";
+       $this->c->z();
+    }
+  }
+  
+  class C {
+     public function z() {
+        echo "C.z\n";
+     }
+  }
