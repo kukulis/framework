@@ -263,6 +263,8 @@ Now in the factory we may use other implementations for A, B or C classes.
 
 Lets say we need to have multiple databases in our system, or we need to work with different resources but still use the same code. So we may use multiple instances or our service classes, depending on our needs.
 
+Lets say we have a class D which have multiple workers - implementations of interface IA. Each of the worker does the "same" thing from the D perspective, but actully it does different, because each worker will be a different instance of the same interface IA.
+
     class D {
         private $workers=[];
         
@@ -312,7 +314,7 @@ So for **level 3 DI** you need to have a possibility to have **multiple instance
     }
     
     
-BTW most flexible DI factory is a pure PHP code, but it migh be too verbose and too work consuming.
+BTW most flexible DI factory is a pure PHP code, but it migh be too verbose and too work consuming. So, depending on your DI framework, you should be able to atchieve **level 3 DI** in some way.
 
 ## Good and bad practices
 
