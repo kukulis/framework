@@ -88,11 +88,12 @@ the vertical layers are not exact as it should be: the functionality of controll
 
 In the picture below is drawn a bad access example.
 ![Bad case too long vertical relation](pics/coupling/6.bad_case1.gif)
+
 The controller tried to access database layer service. 
 This is forbiden in the layering architecture.
 
 The solution is to delegate call through some Bussiness layer service, 
-or **better** organize your code logic so that this call wouldn't be needed.
+or **better** organize your code logic so that this call wouldn't be needed at all.
 ![Soluton 1](pics/coupling/7.solution1.gif)
 
 
