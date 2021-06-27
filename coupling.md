@@ -26,7 +26,7 @@ by data access types, by call depth .. etc. We will propose exact criterias late
 
 Let's say that relation between more than one bound is illegal.
 
-![Relations between bounds](pics/coupling/4.relations between bounds.gif)
+![Relations between bounds](pics/coupling/4.relations_between_bounds.gif)
 
 This way, if we replace one module/class/function, we will need to fix 
 only neighbouring module/class/function code.\
