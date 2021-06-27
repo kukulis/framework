@@ -1,6 +1,7 @@
 # Decoupling by layers
 
 When you have your system like the chaos cloud.
+
 ![Chaos](pics/coupling/1.chaos.gif)
 
 You inevitably enter in to a situation when making a new change in to your system 
@@ -87,6 +88,7 @@ the vertical layers are not exact as it should be: the functionality of controll
 **Accessing between two horizontal layers is forbiden**
 
 In the picture below is drawn a bad access example.
+
 ![Bad case too long vertical relation](pics/coupling/6.bad_case1.gif)
 
 The controller tried to access database layer service. 
@@ -94,38 +96,47 @@ This is forbiden in the layering architecture.
 
 The solution is to delegate call through some Bussiness layer service, 
 or **better** organize your code logic so that this call wouldn't be needed at all.
+
 ![Soluton 1](pics/coupling/7.solution1.gif)
 
 
 **Calls between entry points**
+
 ![Forbiden relation between controllers](pics/coupling/8.bad_case2.gif)
 
 The solution is to move a reusable code to a service class and make calls to it 
 from these two controllers.
+
 ![Solution 2](pics/coupling/9.solution2.gif)
 
 
 **Calls between data layer service**
+
 ![Relations between data layers](pics/coupling/10.bad_case3.gif)
 
 If you want to pass data from one data source to other, you should make separate calls 
 from the business logic layer service.
+
 ![Solution 3](pics/coupling/11.solution3.gif)
 
 
 **Overloading functions with both data load and transformation**
+
 ![Overloading with too mutch responsibilities](pics/coupling/12.bad_case4.gif)
 
 Its better to make pure calls with a native data structure to the data source and the 
 transformation should be made in **a helper**. 
+
 ![Solution 4 using helper](pics/coupling/13.solution4.gif)
 
 
 **Too mutch horizontal calls between business logic services**
+
 ![Too mutch reusability in a high level business logic service](pics/coupling/14.warning_case5.gif)
 
 The solution is to make sublayer inside the business logic layer, and put a reusable 
 code in that layer service.
+
 ![Solution 5 making sublayer services](pics/coupling/15.solution5.gif)
 
 
