@@ -1,0 +1,25 @@
+version: "3.6"
+
+networks:
+    symf-network:
+        name: symf-network
+        external: true
+
+services:
+    symf-app:
+        image: symf/symf-app:latest
+        container_name: symf-app
+        build:
+            context: ./
+            dockerfile: .docker/app/Dockerfile
+        volumes:
+            - ./:/var/www/html
+
+        environment:
+            BASEDIR: /var/www/html
+
+        networks:
+            - symf-network
+
+
+
