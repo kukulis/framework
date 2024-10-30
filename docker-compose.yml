@@ -17,6 +17,7 @@ services:
 
         environment:
             BASEDIR: /var/www/html
+            HOME: /var/www/html
 
         networks:
             - symf-network
