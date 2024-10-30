@@ -9,4 +9,6 @@ Experimental project to learn symfony + jwt
 
     docker network create symf-network
 
+## rebuild image
 
+    docker build -t symf/symf-app .docker/app
