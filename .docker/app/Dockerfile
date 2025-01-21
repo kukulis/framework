@@ -12,3 +12,8 @@ RUN chmod uga+x /usr/bin/install-php-extensions \
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
+RUN addgroup --gid=1000 app
+RUN adduser --disabled-password --quiet --uid=1000 --gid=1000 --no-create-home --gecos GECOS app
+
+
+
