@@ -9,3 +9,9 @@ api_test:
     path: /api/test
     # the controller value has the format 'controller_class::method_name'
     controller: App\Api\TestController::list
+
+api_error:
+    path: /api/error
+    controller: App\Api\TestController::error
+
+
