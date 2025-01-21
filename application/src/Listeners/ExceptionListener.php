@@ -10,6 +10,8 @@ class ExceptionListener
 {
     public function __invoke(ExceptionEvent $event): void
     {
+        // TODO skip security exceptions
+
         $contentType = $event->getRequest()->headers->get('Content-Type', 'text/plain');
 
         // You get the exception object from the received event

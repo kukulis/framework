@@ -14,4 +14,5 @@ api_error:
     path: /api/error
     controller: App\Api\TestController::error
 
-
+api_login_check:
+    path: /api/login_check

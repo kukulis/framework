@@ -45,3 +45,15 @@ From the inside of the symf-app container:
 
     bin/console lexik:jwt:generate-keypair
 
+
+## api login
+
+url: http://localhost:8000/api/login_check
+body: {"username":"johndoe","password":"test"}
+
+## using the token
+
+In your post headers:
+
+Authorization: Bearer {token}
+
