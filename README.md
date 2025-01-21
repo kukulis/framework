@@ -36,3 +36,12 @@ Value "symf.dv" writen to .docker/web/nginx/conf.d/default.conf
 and inside docker-compose.yml at  PHP_IDE_CONFIG: 'serverName=symf.dv'
 
     
+
+# security
+
+## sertificates
+
+From the inside of the symf-app container:
+
+    bin/console lexik:jwt:generate-keypair
+
