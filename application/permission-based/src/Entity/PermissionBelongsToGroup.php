@@ -11,11 +11,6 @@ use Kukulis\PermissionBased\Repository\PermissionBelongsToGroupRepository;
 
 class PermissionBelongsToGroup
 {
-//    #[ORM\Id]
-//    #[ORM\GeneratedValue]
-//    #[ORM\Column]
-//    private ?int $id = null;
-
     #[ORM\ManyToOne(targetEntity: Group::class)]
     #[ORM\JoinColumn(name: 'group_id', referencedColumnName: 'id')]
     #[ORM\Id]
@@ -25,16 +20,7 @@ class PermissionBelongsToGroup
     #[ORM\JoinColumn(name: 'permission_id', referencedColumnName: 'id', fieldName: 'fk_group_permission')]
     #[ORM\Id]
     private ?Permission $permission = null;
-//
-//    public function getId(): ?int
-//    {
-//        return $this->id;
-//    }
-//
-//    public function setId(?int $id): void
-//    {
-//        $this->id = $id;
-//    }
+
 
     public function getGroup(): ?Group
     {
