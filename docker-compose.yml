@@ -44,3 +44,19 @@ services:
         networks:
             - symf-network
 
+    symf-db:
+        container_name: symf-db
+        image: mariadb:latest
+        volumes:
+            - ./.docker/db/volumes/mysql:/var/lib/mysql
+#            - ./.docker/db/resources/database_character_set.sh:/docker-entrypoint-initdb.d/database_character_set.sh
+        environment:
+            - MYSQL_ROOT_PASSWORD=mysecretrootpassword
+            - MYSQL_USER=symf
+            - MYSQL_PASSWORD=symf
+            - MYSQL_DATABASE=symf
+            - TERM=dumb
+        ports:
+            - "3336:3306"
+        networks:
+            - symf-network
