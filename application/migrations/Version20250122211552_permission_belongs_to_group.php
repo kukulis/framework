@@ -23,8 +23,8 @@ final class Version20250122211552_permission_belongs_to_group extends AbstractMi
         $this->addSql(/** @lang MySQL */ 'CREATE TABLE permissions_belongs_to_group (
                         group_id INT NOT NULL, 
                         permission_id INT NOT NULL, 
-                        INDEX IDX_PERMISSION_GROUP_GROUP (group_id), 
-                        INDEX IDX_PERMISSION_GROUP_PERMISSION (permission_id), 
+                        INDEX IDX_E4A139C5FE54D947 (group_id), 
+                        INDEX IDX_E4A139C5FED90CCA (permission_id),
                         PRIMARY KEY(group_id, permission_id)
              ) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB'
         );
