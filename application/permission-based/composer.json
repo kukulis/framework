@@ -1,0 +1,14 @@
+{
+  "type": "symfony-bundle",
+
+  "autoload": {
+    "psr-4": {
+      "Kukulis\\PermissionBased\\": "src"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Kukulis\\PermissionBased\\Tests\\": "tests"
+    }
+  }
+}
