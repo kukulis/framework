@@ -57,3 +57,14 @@ In your post headers:
 
 Authorization: Bearer {token}
 
+## creating user in database
+
+    INSERT INTO symf.users (id, username, password, name) VALUES (1, 'jonas', '$2y$13$v5olE3gyeaKGkBhYlDtuw.hO4WwazOiN5l.u/N1UbM13HuBDEiZ6i', 'Jonas');
+
+This will create user with username 'jonas' and password 'test'
+
+To generate other password, call 
+
+    bin/console security:hash-password
+
+
