@@ -34,12 +34,14 @@
     },
     "autoload": {
         "psr-4": {
-            "App\\": "src/"
+            "App\\": "src/",
+            "Kukulis\\PermissionBased\\": "permission-based/src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "App\\Tests\\": "tests/"
+            "App\\Tests\\": "tests/",
+            "Kukulis\\PermissionBased\\Tests\\": "permission-based/tests"
         }
     },
     "replace": {
