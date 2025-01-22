@@ -8,6 +8,12 @@ security:
             memory:
                 users:
                     johndoe: { password: '$2y$13$v5olE3gyeaKGkBhYlDtuw.hO4WwazOiN5l.u/N1UbM13HuBDEiZ6i', roles: [ 'ROLE_ADMIN' ] }
+#        users:
+#            entity:
+#                # the class of the entity that represents users
+#                class: 'App\Entity\User'
+#                # the property to query by - e.g. email, username, etc
+#                property: 'username'
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
