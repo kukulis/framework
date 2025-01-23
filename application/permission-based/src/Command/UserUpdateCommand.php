@@ -32,7 +32,8 @@ class UserUpdateCommand extends Command
     protected function configure() :void {
         $this
             ->addArgument('username', InputArgument::REQUIRED, 'User username')
-            ->addOption('password', 'p', InputOption::VALUE_REQUIRED,'User password');
+            ->addOption('password', 'p', InputOption::VALUE_REQUIRED,'User password')
+            ->addOption('name', 'N', InputOption::VALUE_REQUIRED,'User name');
     }
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
@@ -53,6 +54,13 @@ class UserUpdateCommand extends Command
             $hasher = $this->hasherFactory->getPasswordHasher(User::class);
             $hashedPassword = $hasher->hash($password);
             $user->setPassword($hashedPassword);
+            $wasChange = true;
+        }
+
+        $name=$input->getOption('name');
+
+        if ( $name !== null) {
+            $user->setName($name);
             $wasChange = true;
         }
 

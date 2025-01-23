@@ -5,6 +5,7 @@ namespace Kukulis\PermissionBased\Repository;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Kukulis\PermissionBased\Entity\Group;
+use Kukulis\PermissionBased\Entity\Permission;
 
 /**
  * @extends ServiceEntityRepository<Group>
@@ -31,13 +32,18 @@ class GroupRepository extends ServiceEntityRepository
     //        ;
     //    }
 
-    //    public function findOneBySomeField($value): ?Group
-    //    {
-    //        return $this->createQueryBuilder('g')
-    //            ->andWhere('g.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+    public function findOneByName(string $name): ?Group
+    {
+        return $this->createQueryBuilder('g')
+            ->andWhere('g.name = :name')
+            ->setParameter('name', $name)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
+    public function create(Group $group): void
+    {
+        $this->getEntityManager()->persist($group);
+    }
+
 }
