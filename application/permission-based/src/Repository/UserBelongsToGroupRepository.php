@@ -2,8 +2,10 @@
 
 namespace Kukulis\PermissionBased\Repository;
 
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Kukulis\PermissionBased\Entity\Group;
 use Kukulis\PermissionBased\Entity\UserBelongsToGroup;
 
 /**
@@ -40,4 +42,25 @@ class UserBelongsToGroupRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
+//    public function findAssignment(int $groupId, int $userId) : ? UserBelongsToGroup {
+//        return $this->findOneBy(['group_id' => $groupId, 'user_id' => $userId]);
+//    }
+    public function findAssignment(int $groupId, int $userId) : ? UserBelongsToGroup {
+
+        $groupReference = $this->getEntityManager()->getReference(Group::class, $groupId);
+        $userReference = $this->getEntityManager()->getReference(User::class, $userId);
+        return $this->findOneBy(['group' => $groupReference, 'user' => $userReference]);
+    }
+
+    public function create(UserBelongsToGroup $user2group): void
+    {
+        $this->getEntityManager()->persist($user2group);
+    }
+
+    public function delete(UserBelongsToGroup $user2group): void
+    {
+        $this->getEntityManager()->remove($user2group);
+    }
+
 }
