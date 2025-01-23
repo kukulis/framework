@@ -5,6 +5,7 @@ symfony
 .composer
 .rnd
 .idea
+xdebug.ini
 
 
 

@@ -4,6 +4,7 @@ namespace App\Listeners;
 
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 
 class ExceptionListener
@@ -16,11 +17,29 @@ class ExceptionListener
 
         // You get the exception object from the received event
         $exception = $event->getThrowable();
+//        if ( $exception instanceof AccessDeniedHttpException ) {
+//            return;
+//        }
+
         $message = sprintf(
-            'My Error says: %s with code: %s',
+            '%s; Code: %s',
             $exception->getMessage(),
             $exception->getCode()
         );
+
+        $statusCode = null;
+
+        if ( $exception instanceof HttpExceptionInterface) {
+            $statusCode = $exception->getStatusCode();
+        }
+
+        if ( $statusCode == null  && $exception instanceof AccessDeniedHttpException) {
+            $statusCode = Response::HTTP_FORBIDDEN;
+        }
+
+        if ( $statusCode == null ) {
+            $statusCode = Response::HTTP_INTERNAL_SERVER_ERROR;
+        }
 
         if ( $contentType == 'application/json' ) {
             $errorResponse = [
@@ -28,7 +47,7 @@ class ExceptionListener
                 'message' => $message,
             ];
 
-            $event->setResponse( new Response(json_encode($errorResponse), 500, ['Content-Type' => 'application/json']) );
+            $event->setResponse( new Response(json_encode($errorResponse), $statusCode, ['Content-Type' => 'application/json']) );
 
             return;
         }
