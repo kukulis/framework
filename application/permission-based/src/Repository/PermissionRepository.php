@@ -31,13 +31,25 @@ class PermissionRepository extends ServiceEntityRepository
     //        ;
     //    }
 
-    //    public function findOneBySomeField($value): ?Permission
-    //    {
-    //        return $this->createQueryBuilder('p')
-    //            ->andWhere('p.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+    public function findOneByName(string $name): ?Permission
+    {
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.name = :name')
+            ->setParameter('name', $name)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
+    public function delete(Permission $permission) : void {
+        $this->getEntityManager()->remove($permission);
+    }
+
+    public function create(Permission $permission): void
+    {
+        $this->getEntityManager()->persist($permission);
+    }
+
+    public function update(Permission $permission): void {
+        $this->getEntityManager()->persist($permission);
+    }
 }
