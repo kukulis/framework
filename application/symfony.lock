@@ -26,6 +26,9 @@
             "migrations/.gitignore"
         ]
     },
+    "kukulis/permissionbased": {
+        "version": "0.01"
+    },
     "lexik/jwt-authentication-bundle": {
         "version": "3.1",
         "recipe": {

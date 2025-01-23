@@ -1,5 +1,7 @@
 {
   "type": "symfony-bundle",
+  "name": "kukulis/permissionbased",
+  "version": "0.01",
 
   "autoload": {
     "psr-4": {

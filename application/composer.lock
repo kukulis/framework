@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "20d3ac1a1bc3c3c3b68fdd748c0df9da",
+    "content-hash": "efa263b2ebfb6e5a9c4fa11821d552d4",
     "packages": [
         {
             "name": "doctrine/cache",
@@ -1220,6 +1220,29 @@
                 "source": "https://github.com/doctrine/sql-formatter/tree/1.5.1"
             },
             "time": "2024-10-21T18:21:57+00:00"
+        },
+        {
+            "name": "kukulis/permissionbased",
+            "version": "0.01",
+            "dist": {
+                "type": "path",
+                "url": "kukulis-permissionbased",
+                "reference": "9a8b7e8b327ee4fe48b018be46dbd7fd20e175e9"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-4": {
+                    "Kukulis\\PermissionBased\\": "src"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Kukulis\\PermissionBased\\Tests\\": "tests"
+                }
+            },
+            "transport-options": {
+                "relative": true
+            }
         },
         {
             "name": "lcobucci/clock",
