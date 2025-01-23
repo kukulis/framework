@@ -7,8 +7,9 @@ services:
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
 
 
-#    Kukulis\PermissionBased\Command\PermissionListCommand:
-#        ~
-
     Kukulis\PermissionBased\:
         resource: '../src/'
+
+    Kukulis\PermissionBased\Listeners\CheckPermissionRightListener:
+        tags:
+            - { name: 'kernel.event_listener', event: 'kernel.request' }

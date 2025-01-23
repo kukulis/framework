@@ -18,15 +18,16 @@
         "doctrine/doctrine-bundle": "^2.13",
         "doctrine/doctrine-migrations-bundle": "^3.4",
         "doctrine/orm": "^3.3",
+        "kukulis/permissionbased": "*",
         "lexik/jwt-authentication-bundle": "^3.1",
         "symfony/console": "7.1.*",
         "symfony/dotenv": "7.1.*",
         "symfony/flex": "^2",
         "symfony/framework-bundle": "7.1.*",
+        "symfony/monolog-bundle": "^3.10",
         "symfony/runtime": "7.1.*",
         "symfony/yaml": "7.1.*",
-        "symfonycasts/reset-password-bundle": "^1.23",
-        "kukulis/permissionbased" : "*"
+        "symfonycasts/reset-password-bundle": "^1.23"
     },
     "require-dev": {
         "phpunit/phpunit": "^9.5",
