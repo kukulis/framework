@@ -11,12 +11,12 @@ use Kukulis\PermissionBased\Repository\PermissionBelongsToGroupRepository;
 
 class PermissionBelongsToGroup
 {
-    #[ORM\ManyToOne(targetEntity: Group::class)]
+    #[ORM\ManyToOne(targetEntity: Group::class, fetch: 'EAGER')]
     #[ORM\JoinColumn(name: 'group_id', referencedColumnName: 'id')]
     #[ORM\Id]
     private ?Group $group = null;
 
-    #[ORM\ManyToOne(targetEntity: Permission::class)]
+    #[ORM\ManyToOne(targetEntity: Permission::class, fetch: 'EAGER')]
     #[ORM\JoinColumn(name: 'permission_id', referencedColumnName: 'id', fieldName: 'fk_group_permission')]
     #[ORM\Id]
     private ?Permission $permission = null;

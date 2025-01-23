@@ -10,12 +10,12 @@ use Kukulis\PermissionBased\Repository\UserBelongsToGroupRepository;
 class UserBelongsToGroup
 {
 
-    #[ORM\ManyToOne(targetEntity: User::class)]
+    #[ORM\ManyToOne(targetEntity: User::class, fetch: 'EAGER')]
     #[ORM\JoinColumn(name: 'user_id', referencedColumnName: 'id')]
     #[ORM\Id]
     private ?User $user = null;
 
-    #[ORM\ManyToOne(targetEntity: Group::class)]
+    #[ORM\ManyToOne(targetEntity: Group::class, fetch: 'EAGER')]
     #[ORM\JoinColumn(name: 'group_id', referencedColumnName: 'id')]
     #[ORM\Id]
     private ?Group $group = null;
