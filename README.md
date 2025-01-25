@@ -67,4 +67,8 @@ To generate other password, call
 
     bin/console security:hash-password
 
+# various 
 
+calculate code lines
+
+    find . -name '*.php' | xargs wc -l
