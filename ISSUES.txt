@@ -1,0 +1,8 @@
+1)
+
+app@b6faf692e491:~/application$ php bin/console  lexik:jwt:generate-keypair
+
+In EnvVarProcessor.php line 221:
+
+  Environment variable not found: "JWT_SECRET_KEY".
+
