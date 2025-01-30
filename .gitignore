@@ -7,5 +7,7 @@ symfony
 .idea
 xdebug.ini
 .lesshst
+.viminfo
+
 
 
