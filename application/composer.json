@@ -4,12 +4,6 @@
     "minimum-stability": "stable",
     "prefer-stable": true,
 
-    "repositories": [
-        {
-            "type": "path",
-            "url": "kukulis-permissionbased"
-        }
-    ],
     "require": {
         "php": ">=8.2",
         "ext-ctype": "*",
@@ -18,7 +12,7 @@
         "doctrine/doctrine-bundle": "^2.13",
         "doctrine/doctrine-migrations-bundle": "^3.4",
         "doctrine/orm": "^3.3",
-        "kukulis/permissionbased": "*",
+        "kukulis/permissionbased": "dev-main",
         "lexik/jwt-authentication-bundle": "^3.1",
         "symfony/console": "7.1.*",
         "symfony/dotenv": "7.1.*",
