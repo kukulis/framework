@@ -1,5 +1,3 @@
-version: "3.6"
-
 networks:
     symf-network:
         name: symf-network

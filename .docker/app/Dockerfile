@@ -18,3 +18,6 @@ RUN adduser --disabled-password --quiet --uid=1000 --gid=1000 --no-create-home -
 RUN pecl install xdebug
 RUN docker-php-ext-enable xdebug
 
+
+RUN install-php-extensions xml soap
+
