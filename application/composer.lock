@@ -981,16 +981,16 @@
         },
         {
             "name": "doctrine/orm",
-            "version": "3.3.1",
+            "version": "3.3.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/orm.git",
-                "reference": "b1f8253105aa5382c495e5f9f8ef34e297775428"
+                "reference": "c9557c588b3a70ed93caff069d0aa75737f25609"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/orm/zipball/b1f8253105aa5382c495e5f9f8ef34e297775428",
-                "reference": "b1f8253105aa5382c495e5f9f8ef34e297775428",
+                "url": "https://api.github.com/repos/doctrine/orm/zipball/c9557c588b3a70ed93caff069d0aa75737f25609",
+                "reference": "c9557c588b3a70ed93caff069d0aa75737f25609",
                 "shasum": ""
             },
             "require": {
@@ -1065,9 +1065,9 @@
             ],
             "support": {
                 "issues": "https://github.com/doctrine/orm/issues",
-                "source": "https://github.com/doctrine/orm/tree/3.3.1"
+                "source": "https://github.com/doctrine/orm/tree/3.3.2"
             },
-            "time": "2024-12-19T07:08:14+00:00"
+            "time": "2025-02-04T19:43:15+00:00"
         },
         {
             "name": "doctrine/persistence",
@@ -1226,12 +1226,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/kukulis/permissionbased.git",
-                "reference": "5a6e86644cbf0a962f25d098615143f8077497ac"
+                "reference": "a5c1cf266fe1859ab52221a5c79a4af3cc7e32cd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kukulis/permissionbased/zipball/5a6e86644cbf0a962f25d098615143f8077497ac",
-                "reference": "5a6e86644cbf0a962f25d098615143f8077497ac",
+                "url": "https://api.github.com/repos/kukulis/permissionbased/zipball/a5c1cf266fe1859ab52221a5c79a4af3cc7e32cd",
+                "reference": "a5c1cf266fe1859ab52221a5c79a4af3cc7e32cd",
                 "shasum": ""
             },
             "default-branch": true,
@@ -1246,7 +1246,7 @@
                 "issues": "https://github.com/kukulis/permissionbased/issues",
                 "source": "https://github.com/kukulis/permissionbased/tree/main"
             },
-            "time": "2025-01-31T19:33:39+00:00"
+            "time": "2025-01-31T20:46:57+00:00"
         },
         {
             "name": "lcobucci/clock",
