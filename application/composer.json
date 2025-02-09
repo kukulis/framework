@@ -15,6 +15,7 @@
         "doctrine/orm": "^3.3",
         "kukulis/permissionbased": "dev-main",
         "lexik/jwt-authentication-bundle": "^3.1",
+        "php2wsdl/php2wsdl": "^0.7.0",
         "symfony/console": "7.1.*",
         "symfony/dotenv": "7.1.*",
         "symfony/flex": "^2",

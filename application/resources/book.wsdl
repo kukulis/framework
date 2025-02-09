@@ -1,0 +1,75 @@
+<?xml version="1.0"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://symf-web/book-service" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap-enc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" name="App.Soap.BookService" targetNamespace="http://symf-web/book-service">
+  <types>
+    <xsd:schema targetNamespace="http://symf-web/book-service">
+      <xsd:import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
+      <xsd:complexType name="App.DTO.Book">
+        <xsd:all>
+          <xsd:element name="name" type="xsd:string"/>
+          <xsd:element name="year" type="xsd:string"/>
+        </xsd:all>
+      </xsd:complexType>
+    </xsd:schema>
+  </types>
+  <portType name="App.Soap.BookServicePort">
+    <operation name="__construct">
+      <input message="tns:__constructIn"/>
+    </operation>
+    <operation name="bookYear">
+      <input message="tns:bookYearIn"/>
+      <output message="tns:bookYearOut"/>
+    </operation>
+    <operation name="bookDetails">
+      <input message="tns:bookDetailsIn"/>
+      <output message="tns:bookDetailsOut"/>
+    </operation>
+  </portType>
+  <binding name="App.Soap.BookServiceBinding" type="tns:App.Soap.BookServicePort">
+    <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <operation name="__construct">
+      <soap:operation soapAction="http://symf-web/book-service#__construct"/>
+      <input>
+        <soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://symf-web/book-service"/>
+      </input>
+      <output>
+        <soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://symf-web/book-service"/>
+      </output>
+    </operation>
+    <operation name="bookYear">
+      <soap:operation soapAction="http://symf-web/book-service#bookYear"/>
+      <input>
+        <soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://symf-web/book-service"/>
+      </input>
+      <output>
+        <soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://symf-web/book-service"/>
+      </output>
+    </operation>
+    <operation name="bookDetails">
+      <soap:operation soapAction="http://symf-web/book-service#bookDetails"/>
+      <input>
+        <soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://symf-web/book-service"/>
+      </input>
+      <output>
+        <soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://symf-web/book-service"/>
+      </output>
+    </operation>
+  </binding>
+  <message name="__constructIn"/>
+  <message name="bookYearIn">
+    <part name="id" type="xsd:int"/>
+  </message>
+  <message name="bookYearOut">
+    <part name="return" type="xsd:string"/>
+  </message>
+  <message name="bookDetailsIn">
+    <part name="book" type="tns:App.DTO.Book"/>
+  </message>
+  <message name="bookDetailsOut">
+    <part name="return" type="xsd:string"/>
+  </message>
+  <service name="App.Soap.BookServiceService">
+    <port name="App.Soap.BookServicePort" binding="tns:App.Soap.BookServiceBinding">
+      <soap:address location="http://symf-web/book-service"/>
+    </port>
+  </service>
+</definitions>

@@ -2,6 +2,8 @@
 
 namespace App\Soap;
 
+use App\DTO\Book;
+
 class BookService
 {
     private $_books = NULL;
@@ -14,7 +16,13 @@ class BookService
         ];
     }
 
-    public function bookYear($id){
+
+    /**
+     * @soap
+     * @param int $id
+     * @return string
+     */
+    public function bookYear(int $id): string {
 
         $bookYear = "";
         foreach($this->_books as $bk){
@@ -25,10 +33,17 @@ class BookService
         return $bookYear; // book not found
     }
 
-    public function bookDetails($book){
+    /**
+     * @soap
+     * @param \App\DTO\Book $book
+     * @return string
+     */
+    public function bookDetails($book): string {
         foreach($this->_books as $bk){
-            if($bk['name']==$book->name)
+            if($bk['name']==$book->name) {
                 return json_encode($bk);
+//                return $bk;
+            }
         }
         return ""; // book not found
     }

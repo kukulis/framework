@@ -2,7 +2,7 @@
 
 namespace App\Api;
 
-use \RuntimeException;
+use RuntimeException;
 use Symfony\Component\HttpFoundation\Response;
 
 class TestController

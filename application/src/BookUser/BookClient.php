@@ -8,14 +8,16 @@ class BookClient
 {
     private SoapClient $soapClient;
 
-    public function __construct()
+    public function __construct(
+        private string $wsdlPath
+    )
     {
         $params = array(
             'location'=>'http://symf-web/book-service?wsdl',
             'uri' =>  'urn://symf-web/book-service.php?wsdl'  ,
             'trace'=>1,'cache_wsdl'=>WSDL_CACHE_NONE    );
 
-        $this->soapClient =  new SoapClient(NULL, $params);
+        $this->soapClient =  new SoapClient($this->wsdlPath, $params);
     }
 
     public function getBookYr($id_array){

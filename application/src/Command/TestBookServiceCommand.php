@@ -18,6 +18,7 @@ class TestBookServiceCommand extends Command
 {
     public function __construct(
 //        private BookClient $bookClient,
+        private string $wsdlPath,
     )
     {
         parent::__construct();
@@ -32,7 +33,7 @@ class TestBookServiceCommand extends Command
         $io = new SymfonyStyle($input, $output);
 
         try {
-            $bookClient = new BookClient();
+            $bookClient = new BookClient($this->wsdlPath);
 
             $bookId = array("5409");
             $book = new Book('Rust Development', 2010);
@@ -48,7 +49,6 @@ class TestBookServiceCommand extends Command
             $io->error($exception->getMessage());
 
             return Command::FAILURE;
-
         }
 
     }

@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
+use App\DTO\Book;
 use App\Soap\BookService;
 use Psr\Log\LoggerInterface;
+use SoapFault;
 use SoapServer;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,8 +17,8 @@ class SoapController
 {
     public function __construct(
         private BookService $bookService,
-        private LoggerInterface $logger
-
+        private LoggerInterface $logger,
+        private string $wsdlPath
     )
     {
     }
@@ -27,19 +29,39 @@ class SoapController
         $content = $request->getContent();
         $this->logger->info('received request with content: '.$content);
 
-        $wsdl = NULL;
+//        $wsdl = null;
+        $wsdl = $this->wsdlPath;
+        $this->logger->info('Wsdl path: '.$wsdl);
 
         // initialize SOAP Server
         $server = new SoapServer($wsdl, [
             'uri' => "http://symf-web/book-service"
         ]);
 
+//        $server->setObject($this->bookService);
+        $server->setClass(BookService::class);
 
-        $server->setObject($this->bookService);
+//        header_register_callback(
+//            function (... $args) {
+//                $this->logger->info( 'headers callback: '. json_encode($args));
+//            }
+//        );
 
+
+        $responseContent = 'asdf';
         ob_start();
-        $server->handle($content);
+        try {
+            $server->handle($content);
+        } catch (SoapFault $e) {
+            $this->logger->error('SoapFault: '.$e->getMessage());
+        }
 
-        return new Response(ob_get_clean());
+        $responseContent = ob_get_clean();
+
+        $this->logger->info('Response content: '.$responseContent);
+
+        return new Response($responseContent, Response::HTTP_OK);
+
+//        exit();
     }
 }
